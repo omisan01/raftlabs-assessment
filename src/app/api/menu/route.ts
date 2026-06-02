@@ -7,7 +7,7 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function GET() {
   const cookieStore = await cookies();
-  const supabase = await createClient(cookieStore);
+  const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase
     .from("menu_items")
