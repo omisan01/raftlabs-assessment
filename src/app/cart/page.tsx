@@ -34,7 +34,7 @@ export default function CheckoutPage() {
         defaultValues: {
             customerName: '',
             address: '',
-            phone: undefined,
+            phone: '',
             totalAmount: totalAmount,
             items: cart.map((item) => ({
                 menuItemId: item.id,
@@ -120,7 +120,7 @@ export default function CheckoutPage() {
                         type="tel"
                         placeholder="9876543210"
                         error={errors.phone}
-                        {...register('phone', { valueAsNumber: true })}
+                        {...register('phone')}
                     />
 
                     {/* Submit CTA Button */}

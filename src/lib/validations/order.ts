@@ -9,7 +9,7 @@ export const orderItemSchema = z.object({
 export const checkoutSchema = z.object({
     customerName: z.string().min(1, "Customer name is required"),
     address: z.string().min(1, "Delivery address is required"),
-    phone: z.number().min(10, "Valid phone number is required"),
+    phone: z.string().min(10, "Valid phone number is required").regex(/^\d+$/, "Phone number must contain only digits"),
     totalAmount: z.number().int().positive("Total must be greater than 0"),
     items: z.array(orderItemSchema).min(1, "Cart cannot be empty"),
 });
