@@ -13,7 +13,7 @@ export async function getMenu(): Promise<MenuItem[]> {
     const supabase = createClient(cookieStore);
 
     const { data, error } = await supabase
-        .from("menu")
+        .from("menu_items")
         .select("*");
 
     if (error) {
