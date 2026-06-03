@@ -1,6 +1,8 @@
-// src/app/api/orders/[id]/status/route.ts
+// COMPONENTS //
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+
+// UTILS //
 import { createClient } from '@/utils/supabase/server';
 
 type OrderStatus = 'ORDER_RECEIVED' | 'PREPARING' | 'OUT_FOR_DELIVERY' | 'DELIVERED';
@@ -16,7 +18,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     try {
         const { id: orderId } = await params;
         const cookieStore = await cookies();
-        const supabase = await createClient(cookieStore);
+        const supabase = createClient(cookieStore);
 
         // 1. Fetch current status
         const { data: order, error: fetchError } = await supabase

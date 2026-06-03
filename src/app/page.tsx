@@ -12,7 +12,7 @@ export default async function Home() {
   const menuItems = await getMenu();
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-8">
       <header className="mb-8 border-b border-gray-200 pb-4 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Zwiggy</h1>

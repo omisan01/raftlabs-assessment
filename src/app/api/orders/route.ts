@@ -1,6 +1,11 @@
+// COMPONENTS //
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+
+// UTILS //
 import { createClient } from "@/utils/supabase/server";
+
+// OTHERS //
 import { checkoutSchema } from "@/lib/validations/order";
 
 export async function POST(request: Request) {
@@ -11,7 +16,7 @@ export async function POST(request: Request) {
         const validatedData = checkoutSchema.parse(body);
 
         const cookieStore = await cookies();
-        const supabase = await createClient(cookieStore);
+        const supabase = createClient(cookieStore);
 
         // 2. Insert main transaction ledger item block inside 'orders' table
         const { data: order, error: orderError } = await supabase
