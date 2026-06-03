@@ -1,14 +1,24 @@
 // TYPES //
 import { MenuItem } from "@/types/menu";
 
-export async function getMenu(): Promise<MenuItem[]> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/menu`, {
-        next: { revalidate: 3600 } // Cache data for an hour
-    });
+// COMPONENTS //
+import { cookies } from "next/headers";
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch menu items');
+// UTILS //
+import { createClient } from "@/utils/supabase/server";
+
+export async function getMenu(): Promise<MenuItem[]> {
+    // 1. Initialize the server-side Supabase client directly
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+
+    const { data, error } = await supabase
+        .from("menu")
+        .select("*");
+
+    if (error) {
+        throw new Error(`Failed to fetch menu items: ${error.message}`);
     }
 
-    return res.json();
+    return data as MenuItem[];
 }
